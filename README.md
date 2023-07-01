@@ -15,6 +15,11 @@ This code was tested with Python 3.8, [Pytorch](https://pytorch.org/) 1.11 using
 Specifically, we implemented our method over  [Latent Diffusion](https://huggingface.co/CompVis/ldm-text2im-large-256) and  [Stable Diffusion](https://huggingface.co/CompVis/stable-diffusion-v1-4).
 Additional required packages are listed in the requirements file.
 The code was tested on a Tesla V100 16GB but should work on other cards with at least **12GB** VRAM.
+```
+conda env create -f environment.yaml
+conda activate null-text-inversion
+pip install -r requirements.txt
+```
 
 ## Quickstart
 
@@ -79,10 +84,20 @@ Null-text inversion enables intuitive text-based editing of **real images** with
 
 ![teaser](docs/null_text_teaser.png)
 
+## Null-Text Inversion
+```bash
+python null_text_inversion.py --image /data3/chengyeh/DragDiffusion-Experiment/TEdBench/originals/bird/bird.png \
+    --prompt "a photo of a bird" --device cuda:3 --output_dir /data3/chengyeh/DragDiffusion-Experiment/TEdBench/originals/bird/Null-Text-Inversion
+```
+
+This outputs the following files in `--output_dir`
+  1. a `results.png` containing original image, image passed through AutoEncoder, and image inverted by Null-Text inversion.
+  2. a `uncond_embeddings.pth` checkpoint containing optimized unconditional embeddings for all time steps.
+  3.  a `args.json` with all arguments used in this run.
+
 ## Editing Real Images
 
 Prompt-to-Prompt editing of real images by first using Null-text inversion is provided in this [**Notebooke**][null_text].
-
 
 ``` bibtex
 @article{mokady2022null,
